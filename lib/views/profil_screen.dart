@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ukm_map/views/home_screen.dart';
- // Import halaman login_screen.dart
+import 'edit_profile_screen.dart'; // Import halaman edit profil
+import 'home_screen.dart'; // Import halaman home_screen.dart
 
 class ProfileScreen extends StatelessWidget {
   @override
@@ -62,7 +62,7 @@ class ProfileScreen extends StatelessWidget {
             ),
             SizedBox(height: 16),
             Text(
-              'Jenis Kelamin', // Ganti dengan jenis kelamin Anda
+              'Tanggal Lahir', // Ganti dengan tanggal lahir Anda
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.grey[600],
@@ -74,11 +74,15 @@ class ProfileScreen extends StatelessWidget {
             ),
             SizedBox(height: 16),
             Text(
-              'Tanggal Lahir', // Ganti dengan tanggal lahir Anda
+              'Alamat', // Ganti dengan alamat Anda
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.grey[600],
               ),
+            ),
+            SizedBox(height: 16),
+            Divider(
+              color: Colors.grey.withOpacity(0.5),
             ),
             SizedBox(height: 32),
             Row(
@@ -86,37 +90,38 @@ class ProfileScreen extends StatelessWidget {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    // Tambahkan logika untuk mengedit profil
+                    // Navigasi ke halaman Edit Profil
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => EditProfileScreen()),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
-                    minimumSize:
-                        Size(200, 50), // Lebarnya bisa disesuaikan di sini
+                    minimumSize: Size(200, 50), // Lebarnya bisa disesuaikan di sini
                   ),
                   child: Text('Edit Profil'),
                 ),
               ],
             ),
             SizedBox(height: 8),
-Row(
-  mainAxisAlignment: MainAxisAlignment.center,
-  children: [
-    OutlinedButton(
-      onPressed: () {
-        // Tambahkan logika untuk kembali ke halaman login
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
-        );
-      },
-      style: OutlinedButton.styleFrom(
-        minimumSize:
-            Size(200, 50), // Lebarnya bisa disesuaikan di sini
-      ),
-      child: Text('Keluar'),
-    ),
-  ],
-),
-
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                OutlinedButton(
+                  onPressed: () {
+                    // Navigasi ke halaman HomeScreen
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()),
+                    );
+                  },
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: Size(200, 50), // Lebarnya bisa disesuaikan di sini
+                  ),
+                  child: Text('Keluar'),
+                ),
+              ],
+            ),
           ],
         ),
       ),

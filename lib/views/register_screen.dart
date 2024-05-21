@@ -16,6 +16,11 @@ class RegisterScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Image.asset(
+                'assets/images/Logo.png', // Pastikan gambar ada di path ini
+                width: 150,
+                height: 150,
+              ),
               const SizedBox(height: 16),
               const Text(
                 "Daftar untuk membuat akun",

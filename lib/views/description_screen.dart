@@ -27,7 +27,7 @@ class LocationDescriptionScreen extends StatelessWidget {
                 children: [
                   Container(
                     width: double.infinity, // Make image full width
-                    child: Image.network(imageUrl, fit: BoxFit.cover),
+                    child: Image.asset(imageUrl, fit: BoxFit.cover),
                   ),
                   SizedBox(height: 16),
                   Text(
@@ -48,9 +48,9 @@ class LocationDescriptionScreen extends StatelessWidget {
                   SizedBox(height: 16),
                   Container(
                     height: 200,
-                    color: Colors.grey[300], // Placeholder for map
-                    child: Center(
-                      child: Text('Map Placeholder'),
+                    child: Image.asset(
+                      'assets/images/map_placeholder.jpg', // Ganti dengan path gambar map dari assets
+                      fit: BoxFit.cover,
                     ),
                   ),
                   SizedBox(height: 16),
@@ -71,14 +71,15 @@ class LocationDescriptionScreen extends StatelessWidget {
                     onPressed: () {
                       // Implement download form functionality here
                     },
-                    child: Text('Unduh Formulir'),
-                  ),
-                  SizedBox(height: 8),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Implement upload form functionality here
-                    },
-                    child: Text('Unggah Formulir'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white, // Background color of the button
+                    ),
+                    child: Text(
+                      'Hubungi Pihak Terkait',
+                      style: TextStyle(
+                        color: Colors.blue, // Text color
+                      ),
+                    ),
                   ),
                 ],
               ),
