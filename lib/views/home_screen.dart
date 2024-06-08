@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:ukm_map/views/bantuan_screen.dart';
 import 'description_screen.dart';
 import 'profil_screen.dart';
-import 'favorit_screen.dart'; // Import halaman favorit_screen.dart
+import 'favorit_screen.dart';
+import 'bantuan_screen.dart';
+import 'postingan_saya_screen.dart';
+import 'package:ukm_map/views/kategori_tanah.dart';
+import 'package:ukm_map/views/kategori_ruko.dart';
+import 'package:ukm_map/views/kategori_toko.dart';
+import 'package:ukm_map/views/upload_product_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0, right: 16.0),
-            child: CircleAvatar(
-              backgroundImage: AssetImage('assets/images/profile.jpg'), // Pastikan gambar ada di path ini
-              radius: 20,
-            ),
-          ),
-        ],
+        title: Text(''),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -26,7 +22,7 @@ class HomeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Kemana Anda Ingin Membuka Usaha Anda',
+              'Dimana Anda Ingin Membuka Usaha Anda',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -37,7 +33,9 @@ class HomeScreen extends StatelessWidget {
               decoration: InputDecoration(
                 hintText: 'Cari tempat...',
                 prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
               ),
             ),
             SizedBox(height: 32),
@@ -52,9 +50,42 @@ class HomeScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                CategoryBox(icon: Icons.layers, label: 'Tanah'),
-                CategoryBox(icon: Icons.house, label: 'Toko'),
-                CategoryBox(icon: Icons.layers_outlined, label: 'Ruko'),
+                CategoryBox(
+                  icon: Icons.layers,
+                  label: 'Tanah',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LandCategoryScreen(),
+                      ),
+                    );
+                  },
+                ),
+                CategoryBox(
+                  icon: Icons.store,
+                  label: 'Toko',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => StoreCategoryScreen(),
+                      ),
+                    );
+                  },
+                ),
+                CategoryBox(
+                  icon: Icons.apartment,
+                  label: 'Ruko',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ShopHouseCategoryScreen(),
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
             SizedBox(height: 32),
@@ -108,14 +139,19 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed, // Tambahkan ini untuk memastikan jarak yang sama
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite), // Ganti icon favorit
+            icon: Icon(Icons.favorite),
             label: 'Favorit',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.camera), // Ganti icon favorit
+            label: 'Postingan',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person), // Ganti icon profil
@@ -130,25 +166,54 @@ class HomeScreen extends StatelessWidget {
         unselectedItemColor: Colors.grey,
         showUnselectedLabels: true,
         onTap: (int index) {
-          if (index == 2) { // Jika tombol profil ditekan
+          if (index == 2) {
+            // Jika tombol postingan ditekan
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ProfileScreen()), // Arahkan ke ProfilScreen
+              MaterialPageRoute(
+                builder: (context) => PostinganSayaScreen(), // Arahkan ke PostinganSayaScreen
+              ),
             );
-          } else if (index == 1) { // Jika tombol favorit ditekan
+          } else if (index == 1) {
+            // Jika tombol favorit ditekan
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => FavoriteScreen()), // Arahkan ke FavoriteScreen
+              MaterialPageRoute(
+                builder: (context) => FavoriteScreen(), // Arahkan ke FavoriteScreen
+              ),
             );
-          }
-          else if (index == 3) { // Jika tombol favorit ditekan
+          } else if (index == 3) {
+            // Jika tombol profil ditekan
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => HelpScreen()), // Arahkan ke FavoriteScreen
+              MaterialPageRoute(
+                builder: (context) => ProfileScreen(), // Arahkan ke ProfileScreen
+              ),
+            );
+          } else if (index == 4) {
+            // Jika tombol bantuan ditekan
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HelpScreen(), // Arahkan ke HelpScreen
+              ),
             );
           }
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => UploadProductScreen(),
+            ),
+          );
+        },
+        backgroundColor: Color(0xFF3FAFFF), // Warna tombol
+        child: Icon(Icons.add),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat, // Posisi di kanan bawah
     );
   }
 }
@@ -156,37 +221,42 @@ class HomeScreen extends StatelessWidget {
 class CategoryBox extends StatelessWidget {
   final IconData icon;
   final String label;
+  final VoidCallback onTap;
 
   const CategoryBox({
     required this.icon,
     required this.label,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-            color: Colors.blue,
-            borderRadius: BorderRadius.circular(12),
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Container(
+            width: 80,
+            height: 80,
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(
+              icon,
+              size: 40,
+              color: Colors.white,
+            ),
           ),
-          child: Icon(
-            icon,
-            size: 40,
-            color: Colors.white,
+          SizedBox(height: 8),
+          Text(
+            label,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
-        SizedBox(height: 8),
-        Text(
-          label,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

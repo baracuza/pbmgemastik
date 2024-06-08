@@ -15,7 +15,7 @@ class SignUpScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'assets/images/logoSplash.png', // Pastikan gambar ada di path ini
+              'assets/images/Logo.png', // Pastikan gambar ada di path ini
               width: 150,
               height: 150,
             ),
