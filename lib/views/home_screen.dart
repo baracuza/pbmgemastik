@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
             SizedBox(height: 16),
             TextFormField(
               decoration: InputDecoration(
-                hintText: 'Cari tempat...',
+                hintText: 'Pencarian tempat...',
                 prefixIcon: Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
